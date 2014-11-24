@@ -1,0 +1,22 @@
+{
+    "name": "angular-in-viewport",
+    "version": "1.0.1",
+    "homepage": "https://github.com/showpad/angular-in-viewport",
+    "authors": [
+        "Klaas Cuvelier <cuvelierklaas@gmail.com>"
+    ],
+    "description": "Directives to check if a DOM element is in a specified viewport",
+    "main": "dist/in-viewport.js",
+    "keywords": [
+        "DOM",
+        "viewport"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "angular": ">=1.2"
+    },
+    "devDependencies": {
+        "angular-mocks": ">=1.2",
+        "angular-scenario": ">=1.2"
+    }
+}

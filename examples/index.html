@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Language" content="en">
+        <title>angular-in-view</title>
+        <link href="app.css" rel="stylesheet" />
+    </head>
+
+    <body ng-controller="TestCtrl">
+
+        <ul class="viewport" viewport>
+            <li class="item"
+                ng-repeat="item in items track by $index"
+                viewport-enter="item.inViewport = true"
+                viewport-leave="item.inViewport = false"
+                ng-class="{ 'not-in-viewport': item.inViewport === false, 'in-viewport': item.inViewport === true}"
+            >
+
+            </li>
+        </ul>
+
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script src="../dist/in-viewport.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>
