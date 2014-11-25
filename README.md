@@ -22,9 +22,11 @@ Directive (attribute) specifying a DOM element which should be watched. When the
 This plugin has been tested with Angular 1.2 and 1.3
 
 #Example
-   <ul style="width: 200px; height: 200px" viewport>
-        <li ng-repeat="item in items" style="width: 200px; height: 200px" viewport-leave="item.visible = false" viewport-enter="item.visible = true">
-   </ul>
+```HTML
+<ul style="width: 200px; height: 200px" viewport>
+  <li ng-repeat="item in items" style="width: 200px; height: 200px" viewport-leave="item.visible = false" viewport-enter="item.visible = true">
+</ul>
+```
 
 # License
 This Angular module has been published under the [MIT license](LICENSE)
