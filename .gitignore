@@ -16,3 +16,4 @@ npm-debug.log
 
 # Test output
 test/test-results.xml
+test/coverage
