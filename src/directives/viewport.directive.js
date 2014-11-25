@@ -95,9 +95,18 @@
          * Set the viewport element
          * @param element
          */
-        function setViewport (element)
+        function setViewport(element)
         {
             viewport = element;
+        }
+
+        /**
+         * Return the current viewport
+         * @returns {*}
+         */
+        function getViewport()
+        {
+            return viewport;
         }
 
         /**
@@ -142,13 +151,24 @@
             items[index][event] = callback;
         }
 
+        /**
+         * Get list of items
+         * @returns {Array}
+         */
+        function getItems()
+        {
+            return items;
+        }
+
         angular.element($window)
             .on('resize', updateDelayed)
             .on('orientationchange', updateDelayed);
 
-        this.setViewport = setViewport;
-        this.add = add;
-        this.updateDelayed = updateDelayed;
+        this.setViewport    = setViewport;
+        this.getViewport    = getViewport;
+        this.add            = add;
+        this.getItems       = getItems;
+        this.updateDelayed  = updateDelayed;
     }
 
     // DI for controller
