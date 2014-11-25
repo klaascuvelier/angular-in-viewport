@@ -6,7 +6,7 @@
 module.exports = function (config) {
     config.set({
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: false,
 
         // base path, that will be used to resolve files and exclude
         basePath: '../',
@@ -18,12 +18,16 @@ module.exports = function (config) {
         files: [
             'bower_components/angular/angular.js',
             'bower_components/angular-mocks/angular-mocks.js',
+
             'src/in-viewport.module.js',
-            'src/**/*.js',
+            'src/directives/*.js',
+
             'test/spec/**/*.js'
         ],
 
-        preprocessors: {},
+        preprocessors: {
+            'src/**/*.js': ['coverage']
+        },
 
         // web server port
         port: 8080,
@@ -53,6 +57,20 @@ module.exports = function (config) {
 
         junitReporter: {
             outputFile: 'test/test-results.xml'
+        },
+
+        coverageReporter: {
+            reporters:[
+                {
+                    type: 'cobertura',
+                    dir: 'test/coverage/xml/',
+                    file: 'coverage.xml'
+                },
+                {
+                    type: 'html',
+                    dir: 'test/coverage/html/'
+                }
+            ]
         },
 
         // Continuous Integration mode
