@@ -1,6 +1,9 @@
 (function (angular) {
     'use strict';
 
+    angular
+        .module('in-viewport')
+        .directive('viewport', ViewportDefinition);
 
     /**
      * Directive Definition for Viewport
@@ -195,10 +198,5 @@
     }
 
     ViewportLinking.$inject = ['$scope', 'iElement', 'iAttrs', 'viewport'];
-
-    angular
-        .module('in-viewport')
-        .directive('viewport', ViewportDefinition);
-
 
 })(window.angular);

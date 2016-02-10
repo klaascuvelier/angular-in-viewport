@@ -15,5 +15,5 @@ bower_components
 npm-debug.log
 
 # Test output
-test/test-results.xml
+test/junit
 test/coverage
