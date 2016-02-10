@@ -46,7 +46,6 @@ module.exports = function (config) {
 
         // Which plugins to enable
         plugins: [
-            'karma-ng-html2js-preprocessor',
             'karma-phantomjs-launcher',
             'karma-jasmine',
             'karma-coverage',
@@ -56,7 +55,8 @@ module.exports = function (config) {
         reporters: ['junit', 'dots', 'coverage'],
 
         junitReporter: {
-            outputFile: 'test/test-results.xml'
+            outputDir: 'test/junit/',
+            outputFile: 'test-results.xml'
         },
 
         coverageReporter: {

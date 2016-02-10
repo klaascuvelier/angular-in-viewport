@@ -1,6 +1,10 @@
 (function (angular) {
     'use strict';
 
+    angular
+        .module('in-viewport')
+        .directive('viewportLeave', viewportLeaveDefinition);
+
     /**
      * Directive definition for viewport-enter
      */
@@ -30,9 +34,5 @@
             });
         }
     }
-
-    angular
-        .module('in-viewport')
-        .directive('viewportLeave', viewportLeaveDefinition);
 
 })(window.angular);

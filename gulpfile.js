@@ -1,28 +1,38 @@
 'use strict';
 
-var gulp    = require('gulp'),
-    karma   = require('karma').server,
-    jshint  = require('gulp-jshint'),
-    uglify  = require('gulp-uglify'),
-    concat  = require('gulp-concat'),
-    stylish = require('jshint-stylish'),
+var gulp    = require('gulp');
+var karma   = require('karma');
+var jshint  = require('gulp-jshint');
+var uglify  = require('gulp-uglify');
+var concat  = require('gulp-concat');
+var stylish = require('jshint-stylish');
 
-    config = {
-        test: __dirname + '/test/karma.conf.js',
-        src: [
-            './src/in-viewport.module.js',
-            './src/directives/*.js'
-        ],
-        dist: './dist/'
-    };
+var config = {
+    test: __dirname + '/test/karma.conf.js',
+    src: [
+        './src/in-viewport.module.js',
+        './src/directives/*.js'
+    ],
+    dist: './dist/'
+};
 
 
 // Run karma unit tests
 gulp.task('karma', function (done) {
-    karma.start({
+    var karmaConfig = {
         configFile: config.test,
         singleRun: true
-    }, done);
+    };
+
+
+    var server = new karma.Server(karmaConfig, karmaCallback);
+    server.start();
+
+    function karmaCallback ()
+    {
+        done();
+    }
+
 });
 
 // JSHint the source files
