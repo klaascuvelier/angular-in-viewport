@@ -8,15 +8,17 @@
     /**
      * Directive Definition for Viewport
      */
-    function ViewportDefinition()
+    function ViewportDefinition($window)
     {
         return {
             restrict: 'A',
             scope: true,
             controller: ViewportController,
-            link: ViewportLinking
+            link: viewportLinking($window)
         };
     }
+
+    ViewportDefinition.$inject = ['$window'];
 
     /**
      * Controller for viewport directive
@@ -24,7 +26,7 @@
      */
     function ViewportController($window)
     {
-        var viewport    = null,
+        var viewportFn  = null,
             isUpdating  = false,
             updateAgain = false,
             elements    = [], // keep elements in array for quick lookup
@@ -37,7 +39,7 @@
                 elementRect,
                 inViewport;
 
-            if (!viewport) {
+            if (!viewportFn) {
                 return;
             }
 
@@ -48,16 +50,16 @@
 
             isUpdating = true;
 
-            viewportRect = viewport.getBoundingClientRect();
+            viewportRect = viewportFn();
 
             angular.forEach(items, function (item) {
                 elementRect = item.element.getBoundingClientRect();
 
                 inViewport =
                     pointIsInsideBounds(elementRect.left, elementRect.top, viewportRect) ||
-                    pointIsInsideBounds(elementRect.left + elementRect.width, elementRect.top, viewportRect) ||
-                    pointIsInsideBounds(elementRect.left, elementRect.top + elementRect.height, viewportRect) ||
-                    pointIsInsideBounds(elementRect.left + elementRect.width, elementRect.top + elementRect.height, viewportRect);
+                    pointIsInsideBounds(elementRect.right, elementRect.top, viewportRect) ||
+                    pointIsInsideBounds(elementRect.left, elementRect.bottom, viewportRect) ||
+                    pointIsInsideBounds(elementRect.right, elementRect.bottom, viewportRect);
 
                 // On first check and on change
                 if (item.state === null || item.state !== inViewport) {
@@ -88,28 +90,25 @@
          */
         function pointIsInsideBounds(x, y, bounds)
         {
-            return  x >= bounds.left &&
-            y >= bounds.top &&
-            x <= bounds.left + bounds.width &&
-            y <= bounds.top + bounds.height;
+            return x >= bounds.left && x <= bounds.right && y >= bounds.top && y <= bounds.bottom;
         }
 
         /**
-         * Set the viewport element
-         * @param element
+         * Set the viewport box function
+         * @param function
          */
-        function setViewport(element)
+        function setViewportFn(fn)
         {
-            viewport = element;
+            viewportFn = fn;
         }
 
         /**
-         * Return the current viewport
+         * Return the current viewport box function
          * @returns {*}
          */
-        function getViewport()
+        function getViewportFn()
         {
-            return viewport;
+            return viewportFn;
         }
 
         /**
@@ -167,8 +166,8 @@
             .on('resize', updateDelayed)
             .on('orientationchange', updateDelayed);
 
-        this.setViewport    = setViewport;
-        this.getViewport    = getViewport;
+        this.setViewportFn  = setViewportFn;
+        this.getViewportFn  = getViewportFn;
         this.add            = add;
         this.getItems       = getItems;
         this.updateDelayed  = updateDelayed;
@@ -186,17 +185,37 @@
      * @param $timeout
      * @constructor
      */
-    function ViewportLinking($scope, iElement, iAttrs, viewport)
+    function viewportLinking($window)
     {
-        viewport.setViewport(iElement[0]);
-        iElement.on('scroll', viewport.updateDelayed);
+        var linkFn = function($scope, iElement, iAttrs, $ctrl) {
+            if (iAttrs.viewport === 'window') {
+                $ctrl.setViewportFn(function() {
+                    return {
+                        top: 0,
+                        left: 0,
+                        bottom: window.innerHeight || document.documentElement.clientHeight,
+                        right: window.innerWidth || document.documentElement.clientWidth
+                    };
+                });
+                angular.element($window).on('scroll', $ctrl.updateDelayed);
+            } else {
+                $ctrl.setViewportFn(function() {
+                    return iElement[0].getBoundingClientRect();
+                });
+                iElement.on('scroll', $ctrl.updateDelayed);
+            }
 
-        // Trick angular in calling this on digest
-        $scope.$watch(function () {
-            viewport.updateDelayed();
-        });
+            // Trick angular in calling this on digest
+            $scope.$watch(function () {
+                $ctrl.updateDelayed();
+            });
+        };
+
+        linkFn.$inject = ['$scope', 'iElement', 'iAttrs', 'viewport'];
+
+        return linkFn;
     }
 
-    ViewportLinking.$inject = ['$scope', 'iElement', 'iAttrs', 'viewport'];
+    viewportLinking.$inject = ['$window'];
 
 })(window.angular);

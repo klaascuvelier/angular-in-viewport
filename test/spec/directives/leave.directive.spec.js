@@ -25,7 +25,7 @@ describe('in-viewport: viewport-leave directive', function() {
                 });
             };
             this.updateDelayed = function () {};
-            this.setViewport = function () {};
+            this.setViewportFn = function () {};
 
             viewportMockController = this;
             spyOn(viewportMockController, 'add').and.callThrough();

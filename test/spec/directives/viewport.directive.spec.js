@@ -35,11 +35,11 @@ describe('in-viewport: viewport directive', function() {
             controller = element.controller('viewport');
         });
 
-        describe('setViewport/getViewport', function () {
-            it('should set/get the current viewport element', function () {
+        describe('setViewportFn/getViewportFn', function () {
+            it('should set/get the current viewport box function', function () {
                 var viewport = {};
-                controller.setViewport(viewport);
-                expect(controller.getViewport()).toEqual(viewport);
+                controller.setViewportFn(viewport);
+                expect(controller.getViewportFn()).toEqual(viewport);
             });
         });
 
