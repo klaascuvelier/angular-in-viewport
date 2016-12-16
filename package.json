@@ -1,6 +1,6 @@
 {
   "name": "angular-in-viewport",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Directives to check if a DOM element is in a specified viewport",
   "main": "dist/in-viewport.js",
   "scripts": {

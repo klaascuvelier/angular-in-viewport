@@ -134,7 +134,7 @@ describe('in-viewport: viewport directive', function() {
             elementScope = element.scope();
 
             element[0].scrollTop = 550;
-            element[0].dispatchEvent(createEvent('scroll'));;
+            element[0].dispatchEvent(createEvent('scroll'));
 
             element[0].scrollTop = 0;
             element[0].dispatchEvent(createEvent('scroll'));
