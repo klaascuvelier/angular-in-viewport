@@ -29,6 +29,14 @@
         if (iElement[0].nodeType !== 8 && iAttrs.viewportEnter) {
             controller.add('enter', iElement[0], function () {
                 $scope.$apply(function () {
+                    if (iAttrs.viewportLeave) {
+                        // Lazy add leave callback
+                        controller.add('leave', iElement[0], function () {
+                            $scope.$apply(function () {
+                                $scope.$eval(iAttrs.viewportLeave);
+                            });
+                        });
+                    }
                     $scope.$eval(iAttrs.viewportEnter);
                 });
             });
