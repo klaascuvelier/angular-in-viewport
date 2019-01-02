@@ -29,7 +29,9 @@
         if (iElement[0].nodeType !== 8 && iAttrs.viewportEnter) {
             controller.add('enter', iElement[0], function () {
                 $scope.$apply(function () {
-                    if (iAttrs.viewportLeave) {
+                    if (iAttrs.viewportLeave && iElement.attr('viewport-leave-registered') !== 'true') {
+                        iElement.attr('viewport-leave-registered', 'true');
+
                         // Lazy add leave callback
                         controller.add('leave', iElement[0], function () {
                             $scope.$apply(function () {
