@@ -81,4 +81,41 @@ describe('in-viewport: viewport-enter directive', function() {
         expect(elementScope.visible).toBeTruthy();
     });
 
+    describe('given the callback is triggered', function() {
+        var element, elementScope, callback;
+
+        describe('given the element has a leave property', function() {
+
+            describe('given the element\'s leave callback has not been registered yet', function () {
+                beforeEach(function() {
+                    element = angular.element('<div viewport><div viewport-enter="notVisible= false" viewport-leave="notVisible = true"></div>');
+                    $compile(element)($scope);
+                    elementScope = element.scope();
+                    $scope.$digest();
+                    viewportMockController.items[0].callback();
+                });
+
+
+                it('should add a listener to the viewport controller', function () {
+                    expect(viewportMockController.add.calls.count()).toBe(2);
+                    expect(viewportMockController.items[1].event).toBe('leave');
+                });
+            });
+
+            describe('given the element\'s leave callback has been registered', function() {
+                beforeEach(function() {
+                    element = angular.element('<div viewport><div viewport-leave-registered="true" viewport-enter="notVisible= false" viewport-leave="notVisible = true"></div>');
+                    $compile(element)($scope);
+                    elementScope = element.scope();
+                    $scope.$digest();
+                    viewportMockController.items[0].callback();
+                });
+
+
+                it('should not add a listener to the viewport controller', function () {
+                    expect(viewportMockController.add.calls.count()).toBe(1);
+                });
+            });
+        });
+    });
 });
