@@ -116,7 +116,7 @@ describe('in-viewport: viewport directive', function() {
             expect(elementScope.entered).toBeTruthy();
         });
 
-        it('should call the on enter callback', function () {
+        it('should call the on leave callback', function () {
             spyOn(window, 'setTimeout').and.callFake(function (callback) {
                 callback();
             });
@@ -124,7 +124,7 @@ describe('in-viewport: viewport directive', function() {
             var element = angular.element(
                     '<div viewport style="width: 200px; height: 200px; overflow: auto">' +
                         '<div style="height: 210px; width: 200px"></div>' +
-                        '<div style="height: 100px; width: 200px;" viewport-leave="leftIt = true"></div>' +
+                        '<div style="height: 100px; width: 200px;" viewport-enter="entered = true" viewport-leave="leftIt = true"></div>' +
                     '</div>'
                 ), elementScope;
 
