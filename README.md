@@ -1,5 +1,4 @@
 [![GitHub version](https://badge.fury.io/gh/showpad%2Fangular-in-viewport.svg)](http://badge.fury.io/gh/showpad%2Fangular-in-viewport)
-[![Bower version](https://badge.fury.io/bo/angular-in-viewport.svg)](http://badge.fury.io/bo/angular-in-viewport)
 [![NPM version](https://badge.fury.io/js/angular-in-viewport.svg)](http://badge.fury.io/js/angular-in-viewport)
 
 [![Build Status](https://travis-ci.org/showpad/angular-in-viewport.svg)](https://travis-ci.org/showpad/angular-in-viewport)
@@ -15,10 +14,12 @@ Directive (attribute) specifying the DOM element which should be used as viewpor
 To use `window` as the viewport element, set `viewport="window"` on any parent element.
 
 ### viewport-enter
-Directive (attribute) specifying a DOM element which should be watched. When the element enters the viewport the value of the attribute will be evaled.
+Directive (attribute) specifying a DOM element which should be watched. When the element enters the viewport the value of the attribute will be evaluated.
 
 ### viewport-leave
-Directive (attribute) specifying a DOM element which should be watched. When the element leaves the viewport the value of the attribute will be evaled.
+Directive (attribute) specifying a DOM element which should be watched. When the element leaves the viewport the value of the attribute will be evaluated.
+The viewport-leave attribute needs a viewport-enter attribute with valid callback
+
 
 #Compatibility
 This plugin works with Angular 1.x (v1.2 and higher)
