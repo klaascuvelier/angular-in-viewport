@@ -3,6 +3,12 @@
 
 [![Build Status](https://travis-ci.org/showpad/angular-in-viewport.svg)](https://travis-ci.org/showpad/angular-in-viewport)
 
+# Unmaintained
+
+This library is no longer maintained by Showpad.
+Showpad has moved away from AngularJS and will not be publishing any new versions of this library.
+
+
 angular-in-viewport
 ===================
 
